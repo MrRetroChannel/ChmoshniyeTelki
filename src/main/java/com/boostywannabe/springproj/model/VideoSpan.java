@@ -3,40 +3,40 @@ package com.boostywannabe.springproj.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "image")
-public class ImageSpan {
+@Table(name = "video")
+public class VideoSpan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
-    private Long ImageID;
+    @Column(name = "videoID")
+    private Long videoID;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "extension")
-    private ImageType extension;
+    private VideoType extension;
 
     @Lob
-    @Column(name = "bytes")
+    @Column(name = "blob")
     private byte[] blob;
 
-    public ImageSpan() {
-
-    }
-
-    public ImageSpan(Long ImageID, String name, ImageType extension, byte[] blob) {
-        this.ImageID = ImageID;
+    public VideoSpan(Long videoID, String name, VideoType extension, byte[] blob) {
+        this.videoID = videoID;
         this.name = name;
         this.extension = extension;
         this.blob = blob;
     }
 
-    public Long getImageID() {
-        return ImageID;
+    public VideoSpan() {
+
     }
 
-    public void setImageID(Long imageID) {
-        ImageID = imageID;
+    public Long getVideoID() {
+        return videoID;
+    }
+
+    public void setVideoID(Long videoID) {
+        this.videoID = videoID;
     }
 
     public String getName() {
@@ -47,11 +47,11 @@ public class ImageSpan {
         this.name = name;
     }
 
-    public ImageType getExtension() {
+    public VideoType getExtension() {
         return extension;
     }
 
-    public void setExtension(ImageType extension) {
+    public void setExtension(VideoType extension) {
         this.extension = extension;
     }
 
@@ -59,7 +59,7 @@ public class ImageSpan {
         return blob;
     }
 
-    public void setBlob(byte[] bytes) {
-        this.blob = bytes;
+    public void setBlob(byte[] blob) {
+        this.blob = blob;
     }
 }

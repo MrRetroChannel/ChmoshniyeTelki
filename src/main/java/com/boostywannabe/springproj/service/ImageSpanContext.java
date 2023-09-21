@@ -18,7 +18,7 @@ public class ImageSpanContext implements ImageSpanService {
 
     @Override
     public ImageSpan getByImageID(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElse(null);
     }
 
     @Override
@@ -29,5 +29,16 @@ public class ImageSpanContext implements ImageSpanService {
     @Override
     public void addImageSpan(ImageSpan img) {
         repository.save(img);
+    }
+
+    @Override
+    public void deleteImageSpan(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void editImageSpan(Long id, ImageSpan newImg) {
+        newImg.setImageID(id);
+        repository.save(newImg);
     }
 }
