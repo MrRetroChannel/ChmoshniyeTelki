@@ -27,6 +27,12 @@ public class VideoSpan {
         this.blob = blob;
     }
 
+    public VideoSpan(String name, VideoType extension, byte[] blob) {
+        this.name = name;
+        this.extension = extension;
+        this.blob = blob;
+    }
+
     public VideoSpan() {
 
     }

@@ -23,9 +23,14 @@ public class ImageSpan {
     public ImageSpan() {
 
     }
-
     public ImageSpan(Long ImageID, String name, ImageType extension, byte[] blob) {
         this.ImageID = ImageID;
+        this.name = name;
+        this.extension = extension;
+        this.blob = blob;
+    }
+
+    public ImageSpan(String name, ImageType extension, byte[] blob) {
         this.name = name;
         this.extension = extension;
         this.blob = blob;
