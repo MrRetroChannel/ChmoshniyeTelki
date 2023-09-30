@@ -8,10 +8,12 @@ import com.boostywannabe.springproj.service.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -32,12 +34,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/login", "/users/register")
-                    .permitAll()
-                    .requestMatchers("/users/getUsers")
-                    .hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/users/register")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login")
+                        .permitAll()
+                        .requestMatchers("/users/getUsers")
+                        .hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
+                .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
                 .build();
     }

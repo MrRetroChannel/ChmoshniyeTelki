@@ -97,7 +97,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Role> getRole() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
@@ -108,7 +108,7 @@ public class User implements UserDetails {
             this.roles = Collections.singleton(new Role(role));
     }
 
-    public void setRole(Set<Role> status) {
-        this.roles = status;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -52,7 +52,7 @@ public class UserContext implements UserDetailsService {
         if (userRepository.findByUsername(user.getUsername()) != null)
             return false;
 
-        user.setRole(Collections.singleton(new Role(RoleType.USER)));
+        user.setRoles(Collections.singleton(new Role(RoleType.USER)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
@@ -62,7 +62,7 @@ public class UserContext implements UserDetailsService {
     public void setAdmin(User user) {
         var newUser = userRepository.findByUsername(user.getUsername());
         if (newUser != null) {
-            newUser.setRole(Collections.singleton(new Role(RoleType.ADMIN)));
+            newUser.addRole(RoleType.ADMIN);
             userRepository.save(newUser);
         }
     }
