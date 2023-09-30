@@ -4,40 +4,28 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
+    @Column(name = "role")
     private Long roleID;
 
-    @Column(name = "role")
+    @Transient
     private RoleType role;
 
     public Role() {
 
     }
 
-    public Role(Long roleID) {
-        this.roleID = roleID;
-    }
-
-    public Role(Long roleID, RoleType role) {
-        this.roleID = roleID;
+    public Role(RoleType role) {
+        this.roleID = Long.valueOf(role.ordinal());
         this.role = role;
     }
 
     @Override
     public String getAuthority() {
         return role.getRole();
-    }
-
-    public Long getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(Long roleID) {
-        this.roleID = roleID;
     }
 
     public RoleType getRole() {

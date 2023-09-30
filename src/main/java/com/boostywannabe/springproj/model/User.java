@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -98,6 +99,13 @@ public class User implements UserDetails {
 
     public Set<Role> getRole() {
         return roles;
+    }
+
+    public void addRole(RoleType role) {
+        if (this.roles != null)
+            this.roles.add(new Role(role));
+        else
+            this.roles = Collections.singleton(new Role(role));
     }
 
     public void setRole(Set<Role> status) {

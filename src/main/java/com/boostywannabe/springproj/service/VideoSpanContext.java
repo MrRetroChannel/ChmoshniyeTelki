@@ -3,6 +3,7 @@ package com.boostywannabe.springproj.service;
 import com.boostywannabe.springproj.model.VideoSpan;
 import com.boostywannabe.springproj.model.VideoType;
 import com.boostywannabe.springproj.repository.VideoSpanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +14,8 @@ import java.util.List;
 @Service
 public class VideoSpanContext{
 
-    private final VideoSpanRepository repository;
-
-    public VideoSpanContext(VideoSpanRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    VideoSpanRepository repository;
 
     public VideoSpan getByVideoID(Long id) {
         return repository.findById(id).orElse(null);

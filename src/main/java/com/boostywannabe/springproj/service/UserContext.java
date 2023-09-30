@@ -52,11 +52,19 @@ public class UserContext implements UserDetailsService {
         if (userRepository.findByUsername(user.getUsername()) != null)
             return false;
 
-        user.setRole(Collections.singleton(new Role(1L, RoleType.USER)));
+        user.setRole(Collections.singleton(new Role(RoleType.USER)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
         return true;
+    }
+
+    public void setAdmin(User user) {
+        var newUser = userRepository.findByUsername(user.getUsername());
+        if (newUser != null) {
+            newUser.setRole(Collections.singleton(new Role(RoleType.ADMIN)));
+            userRepository.save(newUser);
+        }
     }
 
     public void editUser(User user) {

@@ -33,7 +33,7 @@ public class UserController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Не все ок ебенкатй");
     }
 
-    @GetMapping
+    @GetMapping("/getUsers")
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.ok(service.getUsers());
     }
