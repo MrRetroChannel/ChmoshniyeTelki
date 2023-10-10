@@ -1,8 +1,8 @@
 package com.boostywannabe.springproj.service;
 
-import com.boostywannabe.springproj.model.Role;
-import com.boostywannabe.springproj.model.RoleType;
-import com.boostywannabe.springproj.model.User;
+import com.boostywannabe.springproj.models.Role;
+import com.boostywannabe.springproj.models.RoleType;
+import com.boostywannabe.springproj.models.User;
 import com.boostywannabe.springproj.repository.RoleRepository;
 import com.boostywannabe.springproj.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class UserContext implements UserDetailsService {
+public class UserService implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

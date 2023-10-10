@@ -1,4 +1,4 @@
-package com.boostywannabe.springproj.model;
+package com.boostywannabe.springproj.models;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

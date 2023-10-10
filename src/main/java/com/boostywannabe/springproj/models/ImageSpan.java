@@ -1,4 +1,4 @@
-package com.boostywannabe.springproj.model;
+package com.boostywannabe.springproj.models;
 
 import jakarta.persistence.*;
 

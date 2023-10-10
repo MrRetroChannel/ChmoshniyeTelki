@@ -1,7 +1,7 @@
 package com.boostywannabe.springproj.controllers;
 
-import com.boostywannabe.springproj.model.VideoSpan;
-import com.boostywannabe.springproj.service.VideoSpanContext;
+import com.boostywannabe.springproj.models.VideoSpan;
+import com.boostywannabe.springproj.service.VideoSpanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 @RequestMapping("/videos")
 public class VideoSpanController {
     @Autowired
-    VideoSpanContext service;
+    VideoSpanService service;
 
     @PostMapping("/multipart")
     public void postVideoSpan(@RequestBody MultipartFile video) throws IOException {

@@ -1,7 +1,7 @@
 package com.boostywannabe.springproj.configs;
 
-import com.boostywannabe.springproj.model.Role;
-import com.boostywannabe.springproj.model.RoleType;
+import com.boostywannabe.springproj.models.Role;
+import com.boostywannabe.springproj.models.RoleType;
 import com.boostywannabe.springproj.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,8 +1,9 @@
-package com.boostywannabe.springproj.model;
+package com.boostywannabe.springproj.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,13 +31,6 @@ public class User implements UserDetails {
     @Column(name = "roles")
     private Set<Role> roles;
 
-    public User(Long userID, String username, String password, Set<Role> roles) {
-        this.userID = userID;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
-
     public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
@@ -44,10 +38,6 @@ public class User implements UserDetails {
     }
 
     public User() {
-    }
-
-    public Long getUserID() {
-        return userID;
     }
 
     public void setUserID(Long userID) {
@@ -95,10 +85,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
     }
 
     public void addRole(RoleType role) {

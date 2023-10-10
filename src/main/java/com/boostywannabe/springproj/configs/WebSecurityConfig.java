@@ -1,30 +1,36 @@
 package com.boostywannabe.springproj.configs;
 
-import com.boostywannabe.springproj.model.Role;
-import com.boostywannabe.springproj.model.RoleType;
-import com.boostywannabe.springproj.model.User;
+import com.boostywannabe.springproj.filters.JwtAuthenticationFilter;
+import com.boostywannabe.springproj.models.User;
 import com.boostywannabe.springproj.repository.RoleRepository;
-import com.boostywannabe.springproj.service.UserContext;
+import com.boostywannabe.springproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     @Autowired
-    UserContext userService;
+    UserService userService;
 
     @Autowired
     RoleRepository roleService;
+
+    @Autowired
+    JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public static BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -33,16 +39,19 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/users/register")
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/users/register")
                         .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login")
+                        .requestMatchers("/login", "/signin", "/signup")
                         .permitAll()
                         .requestMatchers("/users/getUsers")
                         .hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .csrf(AbstractHttpConfigurer::disable)
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(Customizer.withDefaults())
                 .build();
     }
@@ -58,9 +67,19 @@ public class WebSecurityConfig {
         userService.setAdmin(admin);
     }
 
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+
+        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+
+        return authenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }
 

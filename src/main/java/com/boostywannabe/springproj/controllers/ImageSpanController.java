@@ -1,7 +1,7 @@
 package com.boostywannabe.springproj.controllers;
 
-import com.boostywannabe.springproj.model.ImageSpan;
-import com.boostywannabe.springproj.service.ImageSpanContext;
+import com.boostywannabe.springproj.models.ImageSpan;
+import com.boostywannabe.springproj.service.ImageSpanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 @RequestMapping("/images")
 public class ImageSpanController  {
     @Autowired
-    ImageSpanContext service;
+    ImageSpanService service;
 
     @PostMapping
     public void postImageSpan(@RequestBody ImageSpan img) {

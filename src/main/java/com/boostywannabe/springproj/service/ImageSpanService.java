@@ -1,7 +1,7 @@
 package com.boostywannabe.springproj.service;
 
-import com.boostywannabe.springproj.model.ImageSpan;
-import com.boostywannabe.springproj.model.ImageType;
+import com.boostywannabe.springproj.models.ImageSpan;
+import com.boostywannabe.springproj.models.ImageType;
 import com.boostywannabe.springproj.repository.ImageSpanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class ImageSpanContext{
+public class ImageSpanService {
 
-    private final ImageSpanRepository repository;
-
-    ImageSpanContext(ImageSpanRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private ImageSpanRepository repository;
 
     public ImageSpan getByImageID(Long id) {
         return repository.findById(id).orElse(null);

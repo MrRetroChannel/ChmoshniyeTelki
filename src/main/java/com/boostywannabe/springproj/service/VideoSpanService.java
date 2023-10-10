@@ -1,7 +1,7 @@
 package com.boostywannabe.springproj.service;
 
-import com.boostywannabe.springproj.model.VideoSpan;
-import com.boostywannabe.springproj.model.VideoType;
+import com.boostywannabe.springproj.models.VideoSpan;
+import com.boostywannabe.springproj.models.VideoType;
 import com.boostywannabe.springproj.repository.VideoSpanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class VideoSpanContext{
-
+public class VideoSpanService {
     @Autowired
-    VideoSpanRepository repository;
+    private VideoSpanRepository repository;
 
     public VideoSpan getByVideoID(Long id) {
         return repository.findById(id).orElse(null);
