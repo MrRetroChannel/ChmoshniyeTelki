@@ -17,13 +17,6 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        return service.addUser(user) ?
-                ResponseEntity.ok("Заебатенько") :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Логин занят");
-    }
-
     @GetMapping("/register")
     public ResponseEntity<?> registerPage(@RequestParam String username, @RequestParam String password) {
         var user = new User();
@@ -42,6 +35,12 @@ public class UserController {
         return bCryptPasswordEncoder.encode(user.getPassword()).equals(load.getPassword()) ?
                 ResponseEntity.status(HttpStatus.OK).body("Все ок ебанат") :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Не все ок ебенкатй");
+    }
+
+    @PostMapping("/change")
+    public ResponseEntity<?> changeCredentials(User user) {
+        service.editUser(user);
+        return ResponseEntity.ok("heheha");
     }
 
     @GetMapping("/getUsers")
